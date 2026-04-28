@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'home_page2.dart'; 
+import 'layanan_keliling.dart';
+import 'pbb1.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,13 +29,25 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 1,
                   children: [
                     _buildMenuCard(
-                      icon: Icons.description_outlined,
+                     icon: Icons.description_outlined,
                       label: 'PBB',
-                      isHighlighted: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PBB1()),
+                        );
+                      },
                     ),
+                    
                     _buildMenuCard(
                       icon: Icons.description_outlined,
                       label: 'BPHTB',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage2()),
+                        );
+                      },
                     ),
                     _buildMenuCard(
                       icon: Icons.calendar_today_outlined,
@@ -41,6 +56,14 @@ class HomePage extends StatelessWidget {
                     _buildMenuCard(
                       icon: Icons.local_shipping_outlined,
                       label: 'Layanan\nKeliling',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LayananKeliling()),
+                        );
+                      },
+                    
+                    
                     ),
                     _buildMenuCard(
                       icon: Icons.info_outlined,
@@ -187,6 +210,7 @@ class HomePage extends StatelessWidget {
     required String label,
     bool isHighlighted = false,
     double iconSize = 40,
+    VoidCallback? onTap, // ← parameter baru
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -205,7 +229,7 @@ class HomePage extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {},
+        onTap: onTap, // ← diteruskan ke InkWell
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

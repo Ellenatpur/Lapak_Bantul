@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lapak_batul/PBB2.dart';
 
 class PBB1 extends StatefulWidget {
   const PBB1({super.key});
@@ -45,7 +46,14 @@ class _PBB1State extends State<PBB1> {
               ),
               child: TextField(
                 controller: _controller,
-                decoration: InputDecoration(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PBB2()),
+    );
+  },
+  readOnly: true,  // Kunci utama agar seperti tombol!
+  decoration: InputDecoration(
                   hintText: 'Masukan NOP...',
                   hintStyle: TextStyle(
                     color: Colors.grey.shade400,

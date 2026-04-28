@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pbb1.dart';
+import 'package:lapak_batul/home_page.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const PBB1(),
+      home: const HomePage(),
     );
   }
 }
