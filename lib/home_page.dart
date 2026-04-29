@@ -26,10 +26,10 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 12,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  childAspectRatio: 1,
+                  childAspectRatio: 0.85, // ← DIPERBAIKI dari 1
                   children: [
                     _buildMenuCard(
-                     icon: Icons.description_outlined,
+                      icon: Icons.description_outlined,
                       label: 'PBB',
                       onTap: () {
                         Navigator.push(
@@ -38,7 +38,6 @@ class HomePage extends StatelessWidget {
                         );
                       },
                     ),
-                    
                     _buildMenuCard(
                       icon: Icons.description_outlined,
                       label: 'BPHTB',
@@ -62,17 +61,15 @@ class HomePage extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => LayananKeliling()),
                         );
                       },
-                    
-                    
                     ),
                     _buildMenuCard(
                       icon: Icons.info_outlined,
-                      label: '',
+                      label: 'Informasi', // ← DIPERBAIKI dari ''
                       iconSize: 36,
                     ),
                     _buildMenuCard(
                       icon: Icons.grid_view,
-                      label: '',
+                      label: 'Lainnya', // ← DIPERBAIKI dari ''
                       iconSize: 36,
                     ),
                   ],
@@ -192,7 +189,7 @@ class HomePage extends StatelessWidget {
                   ),
                   child: ClipOval(
                     child: Image.asset(
-                      'asset/beranda_)picture.png',
+                      'asset/beranda_picture.png', // ← DIPERBAIKI typo ')' dihapus
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -210,7 +207,7 @@ class HomePage extends StatelessWidget {
     required String label,
     bool isHighlighted = false,
     double iconSize = 40,
-    VoidCallback? onTap, // ← parameter baru
+    VoidCallback? onTap,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -229,7 +226,7 @@ class HomePage extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: onTap, // ← diteruskan ke InkWell
+        onTap: onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
