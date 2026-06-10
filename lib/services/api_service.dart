@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lapak_batul/config/env.dart';         // FIXED: Import absolut ke env
-import 'package:lapak_batul/models/user_model.dart';  // FIXED: Import absolut ke user_model
+import 'package:lapak_batul/config/env.dart'; // FIXED: Import absolut ke env
+import 'package:lapak_batul/models/user_model.dart';
+import 'package:lapak_batul/config/env.dart'; // FIXED: Import absolut ke user_model
 
 class ApiService {
+  static final String baseUrl = Env.apiBaseUrl;
   static Map<String, String> get _headers => {
     'Content-Type': 'application/json',
     'x-api-key': Env.apiKey,

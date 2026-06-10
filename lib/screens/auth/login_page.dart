@@ -3,7 +3,6 @@ import 'register_page.dart';
 import 'forgot_password_page.dart';
 import '../../main_navigation.dart';
 import '../../services/api_service.dart';
-import '../../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,31 +25,17 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  // Mengamankan fitur Google Sign-In agar tidak memicu error invalid_api_key di web
   Future<void> _loginWithGoogle() async {
-    setState(() => _isLoading = true);
-    try {
-      final user = await AuthService.signInWithGoogle();
-      if (!mounted) return;
-      if (user != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const MainNavigation()),
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Google Sign-In gagal: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Fitur Google Sign-In dinonaktifkan sementara demi keamanan API.'),
+        backgroundColor: Colors.orange,
+      ),
+    );
   }
 
-  // POST /api/login → dapat token jika berhasil
+  // POST /api/login → Menembak server Reqres API untuk mendapatkan token resmi
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -64,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (!mounted) return;
 
-      // Tampilkan token singkat sebagai konfirmasi (educational)
+      // Menampilkan notifikasi sukses warna hijau di bawah layar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Login berhasil! Token: ${token.substring(0, 8)}...'),
@@ -73,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
 
+      // Berhasil masuk, langsung antar user ke MainNavigation dashboard utama
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const MainNavigation()),
@@ -128,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 8),
-                // Hint untuk demo reqres API
+                // Hint untuk petunjuk akun demo reqres API
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,

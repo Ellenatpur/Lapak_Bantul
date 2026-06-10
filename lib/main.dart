@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart'; 
-import 'package:lapak_batul/config/env.dart';        
-import 'screens/splash/splash_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'screens/auth/login_page.dart';
+import 'screens/splash/splash_screen.dart'; // Mengimpor splash_screen.dart milikmu
+import 'main_navigation.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
+  WidgetsFlutterBinding.ensureInitialized();
 
-  // KITA HAPUS dotenv.load karena datanya sudah langsung dibaca dari Env class di bawah:
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: Env.firebaseAndroidApiKey, 
-      appId: Env.firebaseAndroidAppId,   
-      messagingSenderId: Env.firebaseMessagingSenderId,
-      projectId: Env.firebaseProjectId,
-      storageBucket: Env.firebaseStorageBucket,
-    ),
-  );
+  // Memuat file konfigurasi .env untuk Reqres API
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint("Peringatan: Gagal memuat file .env: $e");
+  }
 
   runApp(const MyApp());
 }
@@ -29,10 +26,15 @@ class MyApp extends StatelessWidget {
       title: 'LaPak Bantul',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF003566)),
+        primaryColor: const Color(0xFF003566),
         useMaterial3: true,
       ),
+      // Membuka Splash Screen interaktif milikmu sebagai halaman pertama
       home: const SplashScreen(),
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const MainNavigation(),
+      },
     );
   }
 }
